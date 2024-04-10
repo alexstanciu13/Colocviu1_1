@@ -58,7 +58,7 @@
         android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:saveEnabled="false" />
+        android:saveEnabled="true" />
 
     <Button
         android:id="@+id/navigate_to_secondary_activity_button"
@@ -66,6 +66,12 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:text="NAVIGATE TO SECONDARY ACTIVITY" />
+
+    <Button
+        android:id="@+id/clean_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clean" />
 
 
 </LinearLayout>

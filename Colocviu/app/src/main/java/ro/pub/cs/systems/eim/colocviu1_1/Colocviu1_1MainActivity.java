@@ -1,5 +1,6 @@
 package ro.pub.cs.systems.eim.colocviu1_1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,12 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Colocviu1_1MainActivity extends AppCompatActivity {
 
     Button north_button, south_button, west_button, east_button;
-    Button navigateToSecondaryActivity;
+    Button navigateToSecondaryActivity, clean_button;
 
     TextView textView;
 
@@ -39,6 +41,9 @@ public class Colocviu1_1MainActivity extends AppCompatActivity {
 
         navigateToSecondaryActivity = findViewById(R.id.navigate_to_secondary_activity_button);
         navigateToSecondaryActivity.setOnClickListener(buttonClickListener);
+
+        clean_button = findViewById(R.id.clean_button);
+        clean_button.setOnClickListener(buttonClickListener);
 
     }
 
@@ -69,8 +74,40 @@ public class Colocviu1_1MainActivity extends AppCompatActivity {
                 total_buttons_clicked++;
                 textView.setText(textViewContent + "East");
             }
+
+            if (view.getId() == R.id.navigate_to_secondary_activity_button) {
+                Intent intent = new Intent(getApplicationContext(), Colocviu1_1SecondaryActivity.class);
+                intent.putExtra("text", textViewContent);
+                startActivityForResult(intent, 1);
+            }
+
+            if (view.getId() == R.id.clean_button) {
+                Intent intent = new Intent(getApplicationContext(), Colocviu1_1SecondaryActivity.class);
+                intent.putExtra("text", textViewContent);
+                total_buttons_clicked = 0;
+                textView.setText("");
+                startActivityForResult(intent, 1);
+            }
+
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        total_buttons_clicked = 0;
+        textView.setText("");
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Result is OK", Toast.LENGTH_SHORT).show();
+            }
+
+            if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Result is CANCELED", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
